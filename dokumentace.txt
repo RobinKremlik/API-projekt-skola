@@ -1,0 +1,57 @@
+Endpoints
+1. Create Customer
+URL: /zalozeniZakaznika
+Method: POST
+Description: Creates a new customer and sends an email with login credentials.
+Parameters:
+firmaId (int): ID of the company the customer belongs to.
+jmeno (string): Customer's first name.
+prijmeni (string): Customer's last name.
+email (string): Customer's email address.
+telefon (string): Customer's phone number.
+Response:
+Success: { "message": "Customer created successfully and email sent." }
+Error: { "error": "Error creating customer." }
+2. Download Meter Readings
+URL: /odecTy
+Method: GET
+Description: Retrieves meter readings for a specific customer or property.
+Parameters:
+zakaznikId (int, optional): ID of the customer to filter readings.
+nemovitostId (int, optional): ID of the property to filter readings.
+Response:
+Success: [ { "ID": 1, "Meridlo_ID": 1, "Datum": "2024-09-01", "Hodnota": 150.00 }, ... ]
+Error: { "error": "Readings not found." }
+3. Register for PUSH Notifications
+URL: /notifications
+Method: POST
+Description: Registers a customer for PUSH notifications.
+Parameters:
+action (string): Either register or send.
+zakaznikId (int): ID of the customer.
+deviceToken (string, required for registration): Device token for notifications.
+message (string, required for sending): Notification message.
+Response:
+Success: { "message": "Registration for PUSH notifications successful." }
+Error: { "error": "Error during registration." }
+4. Set Events (Triggers)
+URL: /udavosti
+Method: POST
+Description: Allows customers to set events to be notified about.
+Parameters:
+zakaznikId (int): ID of the customer.
+typUdalosti (string): Type of event (e.g., "spotřeba překročí hodnotu").
+hodnota (decimal): Threshold value for the event.
+aktivni (boolean): Whether the event is active.
+Response:
+Success: { "message": "Event successfully set." }
+Error: { "error": "Error setting event." }
+5. Get Events
+URL: /udavosti
+Method: GET
+Description: Retrieves all events for a specific customer.
+Parameters:
+zakaznikId (int): ID of the customer.
+Response:
+Success: [ { "ID": 1, "Zakaznik_ID": 1, "TypUdalosti": "spotřeba překročí hodnotu", ... } ]
+Error: { "error": "No events found." }
